@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#080909">
+  <meta name="description" content="Shop VOLT performance wear, training tops, shorts, tanks, and accessories.">
+  <title>Shop — VOLT Performance Wear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/styles.css">
+  <script defer src="assets/js/catalog.js"></script><script defer src="assets/js/store.js"></script><script defer src="assets/js/site.js"></script><script defer src="assets/js/product-card.js"></script><script defer src="assets/js/shop.js"></script>
+</head>
+<body data-page="shop"><div id="site-header"></div><main class="wrap page-main">
+  <div class="page-title-row"><div><p class="eyebrow">VOLT TRAINING COLLECTION</p><h1>THE SHOP<span class="red-dot">.</span></h1></div><p class="page-title-note">GEAR UP. SHOW UP. REPEAT.</p></div>
+  <div class="shop-layout">
+    <aside class="filters" aria-label="Product filters">
+      <div class="filter-head"><h2>FILTERS</h2><button type="button" id="clear-filters">CLEAR ALL</button></div>
+      <div class="filter-group"><h3>CATEGORY</h3><div class="filter-options" id="category-filters"></div></div>
+      <div class="filter-group"><h3>SIZE</h3><div class="size-filter-list" id="size-filters"></div></div>
+      <div class="filter-group"><h3>COLOR</h3><div class="color-filter-list" id="color-filters"></div></div>
+      <div class="filter-group"><h3>PRICE RANGE</h3><input id="price-filter" class="price-range" type="range" min="400" max="1800" step="50" value="1800"><div class="price-labels"><span>EGP 400</span><span id="price-value">EGP 1,800</span></div></div>
+      <p class="filter-note">FILTERS ARE FOR THIS DEMO CATALOG.</p>
+    </aside>
+    <section class="shop-results" aria-label="Products">
+      <div class="shop-tools"><label class="shop-search"><span class="sr-only">Search products</span><span class="search-icon">⌕</span><input type="search" id="shop-search" placeholder="SEARCH THE COLLECTION"></label><label class="sort-select"><span>SORT:</span><select id="sort-products"><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="name">Name: A to Z</option></select></label></div>
+      <div class="active-filters" id="active-filters"></div><div class="results-meta"><span id="result-count"></span><span>PERFORMANCE COLLECTION / 2025</span></div>
+      <div class="product-grid shop-grid" id="shop-products"></div>
+      <div class="no-results hidden" id="no-results"><span class="no-results-mark">V.</span><h2>NO MATCHES THIS ROUND.</h2><p>Try another filter or clear your search.</p><button class="button button-outline" type="button" id="reset-empty">RESET FILTERS</button></div>
+    </section>
+  </div>
+</main><div id="site-footer"></div></body>
+</html>
