@@ -23,7 +23,7 @@ The shopping bag is stored in this browser's localStorage. Checkout, promo valid
 
 ## Set Up Supabase
 
-1. Open the `Vault` project in Supabase and confirm the URL and publishable key in `assets/js/supabase-config.js`.
+1. Open the `VOLT` project in Supabase and confirm the URL and publishable key in `assets/js/supabase-config.js`.
 2. In the Supabase SQL Editor, run `supabase/migrations/20261015_create_profiles.sql`.
 3. In Authentication URL settings, allow `http://localhost:5500/**`, `http://127.0.0.1:5500/**`, and the deployed site URL before using email confirmation or password resets.
 4. Create an account from `login.html`, confirm the email, then sign in and edit the profile.

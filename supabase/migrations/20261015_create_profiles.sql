@@ -1,5 +1,5 @@
 -- VOLT Account Profiles
--- Run this migration in the Supabase SQL Editor for the Vault project.
+-- Safe to run again if some or all of the setup already exists.
 
 create table if not exists public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
@@ -15,20 +15,36 @@ revoke all on table public.profiles from anon, authenticated;
 grant select on table public.profiles to authenticated;
 grant update (full_name, phone, updated_at) on table public.profiles to authenticated;
 
-drop policy if exists "Users can read their own profile" on public.profiles;
-create policy "Users can read their own profile"
-  on public.profiles
-  for select
-  to authenticated
-  using ((select auth.uid()) = id);
+do $$
+begin
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public'
+      and tablename = 'profiles'
+      and policyname = 'Users can read their own profile'
+  ) then
+    create policy "Users can read their own profile"
+      on public.profiles
+      for select
+      to authenticated
+      using ((select auth.uid()) = id);
+  end if;
 
-drop policy if exists "Users can update their own profile" on public.profiles;
-create policy "Users can update their own profile"
-  on public.profiles
-  for update
-  to authenticated
-  using ((select auth.uid()) = id)
-  with check ((select auth.uid()) = id);
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public'
+      and tablename = 'profiles'
+      and policyname = 'Users can update their own profile'
+  ) then
+    create policy "Users can update their own profile"
+      on public.profiles
+      for update
+      to authenticated
+      using ((select auth.uid()) = id)
+      with check ((select auth.uid()) = id);
+  end if;
+end;
+$$;
 
 create or replace function public.create_profile_for_new_user()
 returns trigger
@@ -50,7 +66,17 @@ $$;
 
 revoke all on function public.create_profile_for_new_user() from public, anon, authenticated;
 
-drop trigger if exists on_auth_user_created_create_profile on auth.users;
-create trigger on_auth_user_created_create_profile
-  after insert on auth.users
-  for each row execute procedure public.create_profile_for_new_user();
+do $$
+begin
+  if not exists (
+    select 1 from pg_trigger
+    where tgname = 'on_auth_user_created_create_profile'
+      and tgrelid = 'auth.users'::regclass
+      and not tgisinternal
+  ) then
+    create trigger on_auth_user_created_create_profile
+      after insert on auth.users
+      for each row execute procedure public.create_profile_for_new_user();
+  end if;
+end;
+$$;
