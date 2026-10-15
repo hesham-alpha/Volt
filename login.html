@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080909">
+  <meta name="description" content="Sign in or create your VOLT account.">
+  <title>Account — VOLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="assets/js/supabase-config.js"></script>
+  <script defer src="assets/js/supabase-client.js"></script>
+  <script defer src="assets/js/catalog.js"></script>
+  <script defer src="assets/js/store.js"></script>
+  <script defer src="assets/js/site.js"></script>
+  <script defer src="assets/js/auth.js"></script>
+</head>
+<body data-page="account">
+  <div id="site-header"></div>
+  <main class="wrap page-main auth-page">
+    <div class="page-title-row"><div><p class="eyebrow">YOUR VOLT ACCOUNT</p><h1>YOUR ACCOUNT<span class="red-dot">.</span></h1></div></div>
+    <section class="auth-layout" aria-labelledby="auth-heading">
+      <div class="auth-intro">
+        <p class="eyebrow">BUILT FOR YOUR NEXT REP</p>
+        <h2 id="auth-heading">SHOW UP.<br>STAY READY.</h2>
+        <p>Sign in to manage your VOLT profile and keep your details ready for your next drop.</p>
+      </div>
+      <div class="auth-card">
+        <div class="auth-tabs" role="tablist" aria-label="Account options">
+          <button class="auth-tab active" type="button" role="tab" aria-selected="true" data-auth-view="login">SIGN IN</button>
+          <button class="auth-tab" type="button" role="tab" aria-selected="false" data-auth-view="signup">CREATE ACCOUNT</button>
+        </div>
+
+        <form class="contact-form auth-form" id="login-form">
+          <label for="login-email">EMAIL ADDRESS</label>
+          <input id="login-email" name="email" type="email" required autocomplete="email" placeholder="YOU@EMAIL.COM">
+          <label for="login-password">PASSWORD</label>
+          <input id="login-password" name="password" type="password" required autocomplete="current-password" placeholder="PASSWORD">
+          <button class="button button-red" type="submit">SIGN IN <span>↗</span></button>
+          <button class="auth-text-button" type="button" id="show-forgot">FORGOT PASSWORD?</button>
+        </form>
+
+        <form class="contact-form auth-form hidden" id="signup-form">
+          <label for="signup-name">YOUR NAME</label>
+          <input id="signup-name" name="full_name" required autocomplete="name" maxlength="80" placeholder="FULL NAME">
+          <label for="signup-email">EMAIL ADDRESS</label>
+          <input id="signup-email" name="email" type="email" required autocomplete="email" placeholder="YOU@EMAIL.COM">
+          <label for="signup-password">PASSWORD</label>
+          <input id="signup-password" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="AT LEAST 8 CHARACTERS">
+          <button class="button button-red" type="submit">CREATE ACCOUNT <span>↗</span></button>
+        </form>
+
+        <form class="contact-form auth-form hidden" id="forgot-form">
+          <p class="auth-form-heading">RESET YOUR PASSWORD</p>
+          <label for="forgot-email">EMAIL ADDRESS</label>
+          <input id="forgot-email" name="email" type="email" required autocomplete="email" placeholder="YOU@EMAIL.COM">
+          <button class="button button-red" type="submit">SEND RESET LINK <span>↗</span></button>
+          <button class="auth-text-button" type="button" data-auth-view="login">BACK TO SIGN IN</button>
+        </form>
+
+        <form class="contact-form auth-form hidden" id="reset-form">
+          <p class="auth-form-heading">CHOOSE A NEW PASSWORD</p>
+          <label for="reset-password">NEW PASSWORD</label>
+          <input id="reset-password" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="AT LEAST 8 CHARACTERS">
+          <button class="button button-red" type="submit">UPDATE PASSWORD <span>↗</span></button>
+        </form>
+
+        <p class="form-note auth-status" id="auth-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+</body>
+</html>

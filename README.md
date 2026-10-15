@@ -1,10 +1,10 @@
 # VOLT — Performance Wear
 
-A frontend-only performance-wear storefront made with HTML, CSS, and plain JavaScript. Product data and cart storage are separated into small services so they can be replaced with API/database calls later.
+A storefront made with HTML, CSS, and plain JavaScript. Supabase Auth handles email accounts; a protected `profiles` table stores basic account details.
 
 ## Run locally
 
-Open `index.html` in a browser, or use VS Code's Live Server extension for automatic reloads. No package installation or build step is required.
+Open the folder in VS Code and use Live Server, or run `python -m http.server 5500` and open `http://localhost:5500`. The site needs an internet connection for Supabase Auth and product photos.
 
 ## Pages
 
@@ -14,9 +14,18 @@ Open `index.html` in a browser, or use VS Code's Live Server extension for autom
 - `cart.html` — Saved bag, quantity controls, removal, subtotal, shipping estimate, and demo promo code
 - `about.html` — Brand story
 - `contact.html` — Frontend-only contact form
+- `login.html` — Sign in, create an account, and reset a password
+- `account.html` — Protected profile details and sign out
+- `assets/js/supabase-config.js` — Public Supabase project URL and publishable key
+- `supabase/migrations/20261015_create_profiles.sql` — Profile table, trigger, and row security rules
 
-The demo bag is stored in this browser's localStorage. Checkout, promo validation, contact, and newsletter interactions are demos; they do not submit orders, transmit messages, or store customer data. Product photos load from Unsplash and require an internet connection.
+The shopping bag is stored in this browser's localStorage. Checkout, promo validation, contact, and newsletter interactions are demos; they do not submit orders or transmit form data.
 
-## Add a backend later
+## Set Up Supabase
 
-Catalog data is in `assets/js/catalog.js`; cart persistence and calculations are in `assets/js/store.js`. The pages call those small interfaces rather than embedding data access in the markup. When a backend is ready, replace the catalog read methods and cart storage methods with `fetch()` calls to your API, then connect checkout and forms to their server endpoints. Keep credentials and payment secrets on the server.
+1. Open the `Vault` project in Supabase and confirm the URL and publishable key in `assets/js/supabase-config.js`.
+2. In the Supabase SQL Editor, run `supabase/migrations/20261015_create_profiles.sql`.
+3. In Authentication URL settings, allow `http://localhost:5500/**`, `http://127.0.0.1:5500/**`, and the deployed site URL before using email confirmation or password resets.
+4. Create an account from `login.html`, confirm the email, then sign in and edit the profile.
+
+The browser only receives the public publishable key. The profile table uses Row Level Security so each signed-in user can read and update their own row. Never add a service-role key or database password to browser files. The catalog and cart are still local demo data; connect those separately when their database behavior is defined.

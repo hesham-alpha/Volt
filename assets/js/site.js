@@ -17,6 +17,7 @@ if (siteHeader) {
           <a href="contact.html" data-link="contact">CONTACT</a>
         </nav>
         <div class="nav-actions">
+          <a class="account-link" id="account-link" href="login.html" aria-label="Sign in">SIGN IN</a>
           <a class="icon-link search-action" href="shop.html#search" aria-label="Search the shop">⌕</a>
           <a class="bag-link" href="cart.html" aria-label="Shopping bag">BAG <span id="bag-count">0</span><i class="bag-dot"></i></a>
         </div>
@@ -57,7 +58,27 @@ updateBagCount();
 window.addEventListener("volt-cart-updated", updateBagCount);
 window.addEventListener("storage", updateBagCount);
 
-// 3. Demo Newsletter Form (Does Not Send Data)
+// 3. Keep The Header Account Link In Sync With Supabase Auth
+function updateAccountLink(session) {
+  var accountLink = document.getElementById("account-link");
+  if (!accountLink) return;
+
+  accountLink.href = session ? "account.html" : "login.html";
+  accountLink.textContent = session ? "ACCOUNT" : "SIGN IN";
+  accountLink.setAttribute("aria-label", session ? "Open your account" : "Sign in to your account");
+}
+
+if (window.voltSupabase) {
+  window.voltSupabase.auth.getSession().then(function (result) {
+    updateAccountLink(result.data.session);
+  });
+
+  window.voltSupabase.auth.onAuthStateChange(function (event, session) {
+    updateAccountLink(session);
+  });
+}
+
+// 4. Demo Newsletter Form (Does Not Send Data)
 document.querySelectorAll("[data-demo-form]").forEach(function (form) {
   form.addEventListener("submit", function (event) {
     event.preventDefault();
